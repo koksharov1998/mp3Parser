@@ -7,8 +7,27 @@ def parse_args():
     parser = argparse.ArgumentParser(description='User database utility')
 
 
+def temp():
+    f = open('music2.mp3', 'rb')
+    f.seek(30000000, 2)
+    print(f.read(20))
+
+
 def main():
-    play()
+    f = open('music2.mp3', 'rb')
+    three = "###"
+    i = 5
+    for b in f.read(140).decode(encoding='utf-8'):
+        print(three)
+        three = three[1] + three[2] + b
+        # i -= 1
+        # if i < 0:
+        #   break
+    # print(f.read(142).decode(encoding='utf-8'))
+    # print(f.read(24).decode(encoding='utf-8'))
+    # print(f.read(100).decode(encoding='utf-8'))
+    f.close()
+    # play()
 
 
 def play():
@@ -18,7 +37,7 @@ def play():
 
     pygame.mixer.init()
     pygame.mixer.music.set_volume(0.25)
-    pygame.mixer.music.load('music.mp3')
+    pygame.mixer.music.load('music1.mp3')
     pygame.mixer.music.play()
 
     circle_color = (0, 0, 255)
@@ -54,5 +73,7 @@ def play():
     pygame.mixer.quit()
     pygame.quit()
 
+
 if __name__ == '__main__':
-    main()
+    temp()
+    # main()
