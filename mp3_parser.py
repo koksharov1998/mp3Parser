@@ -1,28 +1,39 @@
 import argparse
-
-import pygame
+import sys
 
 
 def parse_args():
     parser = argparse.ArgumentParser(description='User database utility')
+    #parser.add_argument('-1', '--one', help='This will be option One')
+    parser.add_argument('-n', '--name', nargs='?', help='This will be show name of test audio')
+    namespace = parser.parse_args(sys.argv[1:])
+    if namespace.name:
+        get_name(namespace.name)
 
-
-def temp():
-    f = open('music2.mp3', 'rb')
-    f.seek(30000000, 2)
-    print(f.read(20))
 
 
 def main():
-    f = open('music2.mp3', 'rb')
+    pass
+
+
+def get_name(file):
+    f = open('musics/' + file, 'rb')
     three = "###"
     i = 5
+    flag = False
+    string = ''
     for b in f.read(140).decode(encoding='utf-8'):
-        print(three)
-        three = three[1] + three[2] + b
-        # i -= 1
-        # if i < 0:
-        #   break
+        if three == 'TIT' and not flag:
+            #print(three)
+            flag = True
+        if not flag:
+            three = three[1] + three[2] + b
+        else:
+            string = string + b
+    print(string[8: string.find('T', 9)])
+    # i -= 1
+    # if i < 0:
+    #   break
     # print(f.read(142).decode(encoding='utf-8'))
     # print(f.read(24).decode(encoding='utf-8'))
     # print(f.read(100).decode(encoding='utf-8'))
@@ -31,6 +42,7 @@ def main():
 
 
 def play():
+    import pygame
     pygame.init()
     pygame.display.set_caption('Player')
     player = pygame.display.set_mode((300, 100))
@@ -75,5 +87,6 @@ def play():
 
 
 if __name__ == '__main__':
-    temp()
+    parse_args()
+    #get_name()
     # main()
